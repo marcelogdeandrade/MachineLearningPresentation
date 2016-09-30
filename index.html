@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Introdução ao Machine Learning - Marcelo Andrade</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <!-- Slide capa -->
+        <section>
+          <h1>Machine Learning</h1>
+          <p>
+            <small>Criado por Marcelo Andrade</small>
+          </p>
+        </section>
+
+        <!-- O que é machine learning -->
+        <section>
+          <h2>O que é Machine Learning?</h2>
+          <li class="fragment fade-up"> Campo da inteligência artifical</li>
+          <li class="fragment fade-up"> Técnicas e raciocínio &#8800 computação clássica</li>
+          <li class="fragment fade-up"> Aprendizado de máquina </li>
+
+					<aside class="notes">
+						ML é um campo da inteligência artificial
+						Pode ser definido como um modo de pensar diferente da computação clássica
+						Assim como o nome diz, um meio de ensinar um computador a pensar de um certo modo
+					</aside>
+        </section>
+
+        <!-- Para que serve machine learning? -->
+        <section>
+          <h2>Para que serve Machine Learning?</h2>
+          <img class="fragment fade-up" src="spaceship.gif"  style="width: 35%;height: 35%;" align="left">
+          <img class="fragment fade-up" src="alphago.jpg"  style="width: 35%;height: 35%;" align="right">
+
+					<aside class="notes">
+						Primeiro exemplo: computação clássica.Trajetoria da nave espacial Juno lançada em 2011 para chegar em Jupiter em 2016.
+						Segundo exemplo: AlphaGo. Inteligencia articial da google para jogar Go (Jogo de tabuleiro chinês) Xadrez - 20 jogadas
+						Go - 361
+					</aside>
+
+        </section>
+
+
+        <!-- Como saber se uma fruta é maçã ou laranja?-->
+        <section>
+          <h2>Como classificar frutas?</h2>
+          <img class="fragment fade-up" src="apple.png"  style="width: 35%;height: 35%;" align="left">
+          <img class="fragment fade-up" src="orange.png"  style="width: 35%;height: 35%;" align="right">
+					<aside class="notes">
+						Primeira atividade: como classificar maçãs e laranjas. Tentar induzir uma discussão
+						Começar pelo racicínio clássico para chegar em um código python de classificação.
+					</aside>
+        </section>
+
+
+        <!-- Código para identificar fruta -->
+        <section>
+          <h2>Modelo clássico</h2>
+          <pre><code class="python" spellcheck="false" data-trim contenteditable>
+def detectar_cor(imagem):
+  #código para detectar cor
+
+def detectar_bordas(imagem):
+  #código para detectar bordas
+
+def analise_formato(imagem):
+  #código de análise do formato
+
+def detectar_textura(imagem):
+  #código de detecção da textura
+
+def definir_fruta():
+  #código para predição da fruta
+
+def definir_probabilidades():
+  #código para definir a probabilidade da resposta estar correta
+          </code></pre>
+					<aside class="notes">
+						Comentar a dificuldade de classificação seguindo raciocínio clássico. Comentar como com machine learning é muito mais
+						simples para certas atividades (modelo desconhecido, diferente da trajetória espacial)
+					</aside>
+        </section>
+
+        <!-- Machine learning para identificar fruta -->
+        <section>
+					<section>
+	          <h2>Machine Learning</h2>
+	          <img src="schematic.png">
+						<aside class="notes">
+							Falar da divisão do processo de machine learning em 3 etapas simplificadas, comentar que o
+							modelo ainda é algo abstrato, mas chamamos de classificador(será visto mais para frente)
+						</aside>
+        	</section>
+
+        <!-- Tabela laranjas e maçãs -->
+	        <section>
+						<h2>Banco de Dados</h2>
+						<table>
+							<thead>
+								<tr>
+									<th>Peso</th>
+									<th>Textura</th>
+									<th>Nome</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>150g</td>
+									<td>Rugosa</td>
+									<td>Laranja</td>
+								</tr>
+								<tr>
+									<td>170g</td>
+									<td>Rugosa</td>
+									<td>Laranja</td>
+								</tr>
+								<tr>
+									<td>140g</td>
+									<td>Lisa</td>
+									<td>Maçã</td>
+								</tr>
+	              <tr>
+	                <td>130g</td>
+	                <td>Lisa</td>
+	                <td>Maçã</td>
+	              </tr>
+							</tbody>
+						</table>
+						<aside class="notes">
+							Banco de dados com 4 exemplos. Aprendizado supervisionado. 2 características e 1 rótulo para cada exemplo.
+							Não passar para próximo slide. começar código python para atividade maçãs e laranjas
+						</aside>
+					</section>
+
+					<!-- Modelo e predição do exemplo 1 em python -->
+					<section>
+						<h2>Modelo e predição</h2>
+						<pre><code class="python" spellcheck="false" data-trim contenteditable>
+from sklearn import tree
+
+#Etapas 1 e 2
+dados = [[150,0],[170,0],[140,1],[130,1]]
+nomes = [0,0,1,1]
+
+#Etapa 3
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(dados,nomes)
+
+#Etapa 4
+prediction = clf.predict([[160,0]])
+
+print(prediction)
+          	</code></pre>
+						<aside class="notes">
+							Mostrar código, igual ao feito na hora. Retomar o raciocínio por trás do código para deixar claro o funcionamento.
+						</aside>
+				</section>
+			</section>
+
+			<!-- Introdução ao exemplo 2 -->
+			<section>
+
+				<section>
+				<h2> Classificar espécies de Iris</h2>
+				<img class="fragment fade-up" src="iris1.jpg"  style="width: 30%;height: 30%;" align="left">
+				<img class="fragment fade-up" src="iris2.jpg"  style="width: 30%;height: 30%;" align="center">
+				<img class="fragment fade-up" src="iris3.jpg"  style="width: 30%;height: 30%;" align="right">
+				<br></br>
+				<a class="fragment" href="https://en.wikipedia.org/wiki/Iris_flower_data_set" align="center">Dataset Íris</a>
+				<aside class="notes">
+					Exemplo 2. Banco de dados real, classificar 3 espécies de Íris diferentes(Setosa, Versicolor, Virginica).
+					Explicar o funcionamento do banco de dados (4 características, largura e comprimeiro da pétala e sépala e 1 rótulo).
+					Deixar claro que não estamos trabalhando com imagem.
+					Mesma estapas do exemplo anterior, objetivos no próximo slide.
+				</aside>
+				</section>
+
+				<!-- Objetivos do exemplo 2 -->
+				<section>
+					<h2>Objetivos</h2>
+					<li class="fragment fade-up">Importar banco de dados</li>
+					<li class="fragment fade-up">Treinar classificador</li>
+					<li class="fragment fade-up">Prever espécie de uma nova flor</li>
+					<span class="fragment fade-up">
+						<span class="fragment highlight-red">&#9679 Visualizar árvore de decisões</span>
+					</span>
+					<aside class="notes">
+						Comentar como não entendemos o funcionamento de um classificador (usamos o tree), nesse exemplo, vamos visualizar seu funcionamento
+						Não passar para o próximo slide. Fazer em python a primeira parte do exemplo das flores, apenas 1 teste.
+					</aside>
+				</section>
+
+				<!-- Cógio do exemplo 2 -->
+				<section>
+					<h2>Modelo e predição</h2>
+					<pre><code class="python" spellcheck="false" data-trim contenteditable>
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn import tree
+
+iris = load_iris()
+
+#IDs dos testes
+test_ids = [0,50,100]
+
+#Dados de treinamento
+train_target = np.delete(iris.target, test_ids)
+train_data = np.delete(iris.data, test_ids, axis=0)
+
+#Dados de teste
+teste_target = iris.target[test_ids]
+teste_data = iris.data[test_ids]
+
+#Treinar classificador
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(train_data,train_target)
+
+#Predicao
+prediction = clf.predict(teste_data)
+
+print(teste_target)
+print(prediction)
+
+#Visualizar arvore
+from sklearn.externals.six import StringIO
+import pydotplus
+
+dot_data = StringIO()
+tree.export_graphviz(clf,
+                      out_file = dot_data,
+                      feature_names = iris.feature_names,
+                      class_names = iris.feature_names,
+                      filled = True, rounded= True,
+                      impurity = False)
+
+graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
+graph.write_pdf("iris.pdf")
+					</code></pre>
+					<aside class="notes">
+						Repassar o código feito, verificar se todos entenderam. Pegar a parte do código para visualizar a árvore.
+						Abrir PDF e fazer o raciocínio para algum exemplo da tabela.
+					</aside>
+			</section>
+
+			<!-- Árvore de decisões do exemplo 2 -->
+			<section>
+				<h2>Árvore de decisões</h2>
+				<img src="iris_tree.jpg" style="width: 85%;height: 85%;">
+				<aside class="notes">
+					Mostrar mais uma vez árvore. Comentar que ja vimos o funcionamento de um classificador,
+					mas não sabemos o que é um classificador e como funciona por dentro dele.
+				</aside>
+			</section>
+		</section>
+
+
+
+		<section>
+			<!-- O que é um classficador -->
+			<section>
+				<h2>O que é um classificador?</h2>
+				<h1 class="fragment">f(x) = y</h1>
+				<p class="fragment">X &#8594 características</p>
+				<p class="fragment">Y &#8594 rótulo</p>
+				<pre><code class="python fragment" spellcheck="false" data-trim contenteditable>
+def classificar(caracteristicas):
+	#logica de classificacao
+	return rotulo
+				</code></pre>
+				<aside class="notes">
+					Um classificador é uma função, onde X são as características de entrada e Y o rótulo de saída (previsão)
+					Podemos tratar a função em python, argumento são as características e retorna o rótulo
+					Não é necessário fazer a lógica da classificação, apenas um modelo a ser seguido.
+				</aside>
+			</section>
+
+			<!-- Usando reta como modelo de classificador -->
+			<section>
+				<h2>Usando uma reta como modelo</h2>
+				<p style="display:inline"> Y =</p>
+				<p style="display:inline" class="fragment highlight-red"> a </p>
+				<p style="display:inline"> X + </p>
+				<p style="display:inline" class="fragment highlight-red"> b</p>
+				<br></br>
+				<img class = "fragment" style="width: 40%;height: 40%;"  src="function.gif" align="center">
+				<br></br>
+				<a class="fragment" href="http://playground.tensorflow.org/" align="center">Tensorflow Playground</a>
+				<aside class="notes">
+					Falar do modelo da reta. O aprendizado de máquina será calibrar A e B a partir de um banco de dados.
+					Gif de calibragem de um modelo de reta, comentar sobre erros nos testes.
+					Falar do playground e falar de erros para um número grande de testes.
+					Não passar para o próximo slide, fazer em python o exemplo para verificar erro.
+				</aside>
+			</section>
+
+			<!-- Código python para verificar a precisão do seu modelo -->
+			<section>
+				<h2>Verificar precisão dos testes</h2>
+				<pre><code class="python" spellcheck="false" data-trim contenteditable>
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+#Importar database
+from sklearn.datasets import load_iris
+iris = load_iris()
+
+#Criar dados de treino e dados de teste
+from sklearn.cross_validation import train_test_split
+train_data, teste_data, train_target, teste_target = \
+	train_test_split(iris.data, iris.target, test_size = 0.5)
+
+#Importar classificador
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+
+#Treinar classificador
+clf.fit(train_data,train_target)
+
+#Predicao teste
+predictions = clf.predict(teste_data)
+
+#Verificar precisão da predicao
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(teste_target, predictions)
+
+print(accuracy)
+				</code></pre>
+				<aside class="notes">
+					Retomar o código para ver se todos entenderam. Falar do erro (dependente do modelo e dos dados)
+					Entendemos o funcionamento por dentro de um classificador simples, próximo slide vamos criar nosso primeiro classificador.
+				</aside>
+			</section>
+		</section>
+
+		<section>
+
+			<!-- Criando primeiro classificador baseado em kNN -->
+			<section>
+				<h2>Criando seu primeiro classificador</h2>
+				<li class="fragment"> Usando como base K-Nearest Neighbors </li>
+				<img class="fragment" src="knear.jpg" style="width: 50%;height: 50%;">
+				<aside class="notes">
+					Falar o que o é kNN(classificador como o tree, mas muito mais simples)
+					Explicar a imagem,  o rótulo do teste será o mesmo do ponto com menor distância do teste.
+					Para melhor precisão, o K são o número de pontos proximos testados. (5 no caso)
+					Não passar para o próximo slide, fazer o próprio classificador baseado no ultimo código de precisão
+				</aside>
+			</section>
+
+			<!-- Cógido do primeiro classificador baseado em kNN -->
+			<section>
+				<h2>kNN Fajuto</h2>
+				<pre><code class="python" spellcheck="false" data-trim contenteditable>
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from scipy.spatial import distance
+
+#Classe da simplificação do kNN
+class primeiroClassificador():
+
+    #Método para importar database para o classificador
+    def fit(self,train_data,train_target):
+        self.train_data = train_data
+        self.train_target = train_target
+
+    #Método para prever resultado de testes
+    def predict(self,teste_data):
+        predictions = []
+        for row in teste_data:
+            prediction = self.closest(row)
+            predictions.append(prediction)
+        return predictions
+
+    #Método para achar o dado mais próximo de um teste
+    def closest(self,row):
+        best_dist = distance.euclidean(row, self.train_data[0])
+        best_index = 0
+        for i in range(1,len(self.train_data)):
+            dist = distance.euclidean(row,self.train_data[i])
+            if dist < best_dist:
+                best_dist = dist
+                best_index = i
+        return self.train_target[best_index]
+
+#Importar database
+from sklearn.datasets import load_iris
+iris = load_iris()
+
+#Criar dados de treino e dados de teste
+from sklearn.cross_validation import train_test_split
+train_data, teste_data, train_target, teste_target = train_test_split(iris.data, iris.target, test_size = 0.5)
+
+clf = primeiroClassificador()
+
+#Treinar classificador
+clf.fit(train_data,train_target)
+
+#Predicao teste
+predictions = clf.predict(teste_data)
+
+#Verificar precisão da predicao
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(teste_target, predictions)
+
+print(accuracy)
+				</code></pre>
+				<aside class="notes">
+					Retormar o código com cuidado, falar mais uma vez que mudando somente a classe, os métodos continuaram os mesmos
+					Tirar dúvidas do código e funcionamento do classificador.
+				</aside>
+			</section>
+
+			<!-- Pros e Cons do classificador feito -->
+			<section>
+				<h2>Pros e Cons</h2>
+				<li class="fragment" style="color:green">Simples de implementar</li>
+				<li class="fragment" style="color:red">Computacionalmente intensivo</li>
+				<aside class="notes">
+					Classificador feito é muito simples de implementar(conseguimos fazer em uma apresentação), muito intesivo (deve varrer todas os dados para cada teste)
+				</aside>
+			</section>
+
+		</section>
+
+		<!-- Aonde podemos chegar -->
+		<section>
+			<section>
+				<h2>Aonde podemos chegar com Machine Learning?</h2>
+				<img class="fragment" src="brain.jpg" style="width: 50%;height: 50%;" align="left">
+				<img class="fragment" src="exmachina.jpg" style="width: 40%;height: 40%;" align="right">
+			</section>
+
+
+			<!-- Ferramentas para Machine Learning -->
+			<section>
+				<h2>Ferramentas para aprender Machine Learning</h2>
+				<li class="fragment" href="http://scikit-learn.org/" align="center">Scikit-Learn</li>
+				<li class="fragment" href="https://github.com/lisa-lab/pylearn2" align="center">Pylearn2</li>
+				<li class="fragment" href="http://torch.ch/" align="center">Torch</li>
+				<li class="fragment" href="https://www.tensorflow.org/" align="center">TensorFlow</li>
+			</section>
+
+			<!-- Agradecimentos -->
+			<section>
+				<h2>Obrigado! :)</h2>
+				<p>Apresentação feita com base na série "Machine Learning Recipes" da Google</p>
+			</section>
+		</section>
+
+      </div>
+    </div>
+
+
+  	<script src="lib/js/head.min.js"></script>
+  	<script src="js/reveal.js"></script>
+
+  	<script>
+
+  		// More info https://github.com/hakimel/reveal.js#configuration
+  		Reveal.initialize({
+  			controls: true,
+  			progress: true,
+  			history: true,
+  			center: true,
+
+  			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  			// More info https://github.com/hakimel/reveal.js#dependencies
+  			dependencies: [
+  				{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  				{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  				{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  				{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+  				{ src: 'plugin/zoom-js/zoom.js', async: true },
+  				{ src: 'plugin/notes/notes.js', async: true }
+  			]
+  		});
+
+  	</script>
+
+  </body>
+</html>
